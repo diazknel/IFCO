@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  pyspark-app:
+    build: .
+    container_name: pyspark_app
+    volumes:
+      - .:/app
+    ports:
+      - "4040:4040"
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
