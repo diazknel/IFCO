@@ -8,7 +8,14 @@ The main project file is `run.py`, which acts as the **entry point** of the proj
 Additionally, the project is set up to run unit tests using Pytest to ensure that all functions and components in the code are working correctly.To run in test mode, you must run the container with the MODE environment variable set to test
 
 ## Installation
-1. Clone this repo:
+
+### Requirements
+
+- Have Docker installed.
+
+### Installation Steps
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/diazknel/IFCO.git
    cd IFCO
