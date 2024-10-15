@@ -8,25 +8,25 @@ def main():
     spark = SparkSession.builder.appName("IFCODataAnalysis").getOrCreate()
     
     try:
-        # Cargar datos crudos desde la capa Bronce
+        # Load data from Bronze layer
         orders_df = load_bronze_orders(spark)
         invoicing_df = load_bronze_invoincing(spark)
         
-        # Validar que los datos contengan las columnas esperadas
+        # Validate data
         validate_data(orders_df, ['order_id','date','company_id','company_name','crate_type','contact_data','salesowners'])
         
-        # Transformar a capa Plata (limpieza y estructuración)
+        # Transform data to Silver layer
         orders_df_silver = transform_to_silver(orders_df)
         combined_df = combine_orders_invoices(orders_df_silver, invoicing_df) 
         
-        # Ejecutar análisis desde la capa Oro
+        # Analyze data in Gold layer
         distribution_df = distribution_of_crate_types(orders_df_silver)
         df_1 = full_contact_name(orders_df_silver)
         df_2 = full_address(orders_df_silver)
         df_commisions = calculate_sales_commissions(combined_df)
         df_3 = salesowners_per_company(orders_df_silver)
         
-        # Mostrar resultados
+        # Show results
         print("Test 1: Distribution of Crate Type per Company:")
         distribution_df.show()
 

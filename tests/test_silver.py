@@ -13,7 +13,7 @@ from src.silver import (
 def spark():
     return SparkSession.builder.appName("TestSilverLayer").getOrCreate()
 
-# Test para clean_company_name
+# Test for clean_company_name
 def test_clean_company_name(spark):
     data = [
         ("1", "Company @ Inc."),
@@ -26,10 +26,10 @@ def test_clean_company_name(spark):
     
     result = result_df.select("company_name_clean").collect()
     
-    assert result[0]["company_name_clean"] == "COMPANY  INC", "Error en la limpieza de company_name"
-    assert result[1]["company_name_clean"] == "EXAMPLE COMPANY", "Error en la limpieza de guiones bajos en company_name"
+    assert result[0]["company_name_clean"] == "COMPANY  INC", "Error cleaning company_name"
+    assert result[1]["company_name_clean"] == "EXAMPLE COMPANY", "Error cleaning underscores in company_name"
 
-# Test para transform_to_valid_json
+# Test for transform_to_valid_json
 def test_transform_to_valid_json(spark):
     data = [
         (1, '""{"contact_name": "John", "contact_surname": "Doe"}""'),
@@ -50,9 +50,9 @@ def test_transform_to_valid_json(spark):
     ]
     expected_df = spark.createDataFrame(expected_data, ["order_id", "contact_data", "contact_data_clean"])
 
-    assert df_transformed.collect() == expected_df.collect()
+    assert df_transformed.collect() == expected_df.collect(), "Error transforming JSON strings"
 
-# Test para create_contact_full_name
+# Test for create_contact_full_name
 def test_create_contact_full_name(spark):
     data = [
         (1, '[{"contact_name": "Abel", "contact_surname": "Sanchez", "city":"Valencia", "cp": "12345"}]'),
@@ -85,9 +85,9 @@ def test_create_contact_full_name(spark):
     ])
     expected_df = spark.createDataFrame(expected_data, expected_schema)
 
-    assert df_full_name.collect() == expected_df.collect()
+    assert df_full_name.collect() == expected_df.collect(), "Error creating contact_full_name"
 
-# Test para create_contact_address
+# Test for create_contact_address
 def test_create_contact_address(spark):
     data = [
         ("1", '{"city": "New York", "cp": "10001"}'),
@@ -100,10 +100,10 @@ def test_create_contact_address(spark):
     
     result = result_df.select("contact_address").collect()
     
-    assert result[0]["contact_address"] == "New York, 10001", "Error en la creación de contact_address"
-    assert result[1]["contact_address"] == "Unknown, UNK00", "Error en la asignación de valores por defecto para city y cp"
+    assert result[0]["contact_address"] == "New York, 10001", "Error creating contact_address"
+    assert result[1]["contact_address"] == "Unknown, UNK00", "Error assigning default values ​​for city and zip"
 
-# Test para combine_orders_invoices
+# Test for combine_orders_invoices
 def test_combine_orders_invoices(spark):
     orders_data = [
         ("1", "CompanyA", 10),
@@ -125,5 +125,5 @@ def test_combine_orders_invoices(spark):
     
     result = result_df.select("order_id", "net_invoiced_value").collect()
     
-    assert result[0]["net_invoiced_value"] == 1200, "Error en la combinación de órdenes y facturas"
-    assert result[1]["net_invoiced_value"] == 2300, "Error en la combinación de órdenes y facturas"
+    assert result[0]["net_invoiced_value"] == 1200, "Error in combining orders and invoices"
+    assert result[1]["net_invoiced_value"] == 2300, "Error in combining orders and invoices"

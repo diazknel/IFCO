@@ -14,7 +14,7 @@ from src.gold import (
 def spark():
     return SparkSession.builder.appName("TestGoldLayer").getOrCreate()
 
-# Test para distribution_of_crate_types
+# Test for distribution_of_crate_types
 def test_distribution_of_crate_types(spark):
     data = [
         ("CompanyA", "1", "TypeA"),
@@ -33,7 +33,7 @@ def test_distribution_of_crate_types(spark):
     assert result[1]["crate_type"] == "TypeB", "Error in CompanyA cash type"
     assert result[2]["company_name_clean"] == "CompanyB", "Error in CompanyB distribution∫"
 
-# Test para salesowners_per_company
+# Test for salesowners_per_company
 def test_salesowners_per_company(spark):
     data = [
         ("CompanyA", "1", "John, Alice"),
@@ -47,12 +47,12 @@ def test_salesowners_per_company(spark):
     
     result = result_df.collect()
     
-    assert result[0]["company_name_clean"] == "CompanyA", "Error en la agrupación de CompanyA"
-    assert result[0]["list_salesowners"] == "Alice, Bob, John", "Error en la lista de vendedores para CompanyA"
-    assert result[1]["company_name_clean"] == "CompanyB", "Error en la agrupación de CompanyB"
-    assert result[1]["list_salesowners"] == "Alice, Bob", "Error en la lista de vendedores para CompanyB"
+    assert result[0]["company_name_clean"] == "CompanyA", "Error grouping CompanyA"
+    assert result[0]["list_salesowners"] == "Alice, Bob, John", "Error in list of salespeople for CompanyA"
+    assert result[1]["company_name_clean"] == "CompanyB", "Error grouping CompanyB"
+    assert result[1]["list_salesowners"] == "Alice, Bob", "Error in list of salespeople for CompanyB"
 
-# Test para full_contact_name
+# Test for full_contact_name
 def test_full_contact_name(spark):
     data = [
         ("1", "John Doe"),
@@ -65,10 +65,10 @@ def test_full_contact_name(spark):
     
     result = result_df.collect()
     
-    assert result[0]["contact_full_name"] == "John Doe", "Error en el nombre completo del contacto"
-    assert result[1]["contact_full_name"] == "Jane Smith", "Error en el nombre completo del contacto"
+    assert result[0]["contact_full_name"] == "John Doe", "Contact Full Name Error"
+    assert result[1]["contact_full_name"] == "Jane Smith", "Contact Full Name Error"
 
-# Test para full_address
+# Test for full_address
 def test_full_address(spark):
     data = [
         ("1", "New York, 10001"),
@@ -81,10 +81,10 @@ def test_full_address(spark):
     
     result = result_df.collect()
     
-    assert result[0]["contact_address"] == "New York, 10001", "Error en la dirección del contacto para order_id 1"
-    assert result[1]["contact_address"] == "San Francisco, 94107", "Error en la dirección del contacto para order_id 2"
+    assert result[0]["contact_address"] == "New York, 10001", "Contact address error for order_id 1"
+    assert result[1]["contact_address"] == "San Francisco, 94107", "Contact address error for order_id 2"
 
-# Test para calculate_sales_commissions
+# Test for calculate_sales_commissions
 def test_calculate_sales_commissions(spark):
     data = [
         ("1", "John, Alice", 10000),  # 100 euros
@@ -98,13 +98,12 @@ def test_calculate_sales_commissions(spark):
     
     result = result_df.collect()
     
-    # Verificar las comisiones correctas
     john_commission = [row["total_commission"] for row in result if row["salesowner"] == "John"][0]
     alice_commission = [row["total_commission"] for row in result if row["salesowner"] == "Alice"][0]
     bob_commission = [row["total_commission"] for row in result if row["salesowner"] == "Bob"][0]
     charlie_commission = [row["total_commission"] for row in result if row["salesowner"] == "Charlie"][0]
     
-    assert john_commission == 6.0, "Error en la comisión de John"
-    assert alice_commission == 14.5, "Error en la comisión de Alice"
-    assert bob_commission == 5.0, "Error en la comisión de Bob"
-    assert charlie_commission == 30.0, "Error en la comisión de Charlie"
+    assert john_commission == 6.0, "Error in the commission of John"
+    assert alice_commission == 14.5, "Error in the commission of Alice"
+    assert bob_commission == 5.0, "Error in the commission of Bob"
+    assert charlie_commission == 30.0, "Error in the commission of Charlie"
