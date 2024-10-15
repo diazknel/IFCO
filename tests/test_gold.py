@@ -28,10 +28,10 @@ def test_distribution_of_crate_types(spark):
     
     result = result_df.collect()
     
-    assert result[0]["company_name_clean"] == "CompanyA", "Error en la distribución de CompanyA"
-    assert result[0]["order_count"] == 1, "Error en el conteo de TypeA de CompanyA"
-    assert result[1]["crate_type"] == "TypeB", "Error en el tipo de caja de CompanyA"
-    assert result[2]["company_name_clean"] == "CompanyB", "Error en la distribución de CompanyB"
+    assert result[0]["company_name_clean"] == "CompanyA", "Error in distribution of CompanyA"
+    assert result[0]["order_count"] == 1, "Error in counting TypeA of CompanyA"
+    assert result[1]["crate_type"] == "TypeB", "Error in CompanyA cash type"
+    assert result[2]["company_name_clean"] == "CompanyB", "Error in CompanyB distribution∫"
 
 # Test para salesowners_per_company
 def test_salesowners_per_company(spark):

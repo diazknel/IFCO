@@ -24,10 +24,10 @@ Additionally, the project is set up to run unit tests using Pytest to ensure tha
    docker compose build     
 3. Executer the container
    ```bash
-   docker run -e MODE=app ifco_v2-pyspark-app 
+   docker run -e MODE=app ifco-pyspark-app 
 4. Test Mode all Unit Test
     ```bash
-    docker run -e MODE=test ifco_v2-pyspark-app
+    docker run -e MODE=test ifco-pyspark-app
 5. Test Mode specfic Unit Test
    ```bash
-   docker run -e MODE=test -e TEST_FILE="tests/test_bronze.py" ifco_v2-pyspark-app
+   docker run -e MODE=test -e TEST_FILE="tests/test_bronze.py" ifco-pyspark-app
