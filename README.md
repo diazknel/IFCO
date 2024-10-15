@@ -18,16 +18,18 @@ Additionally, the project is set up to run unit tests using Pytest to ensure tha
 1. Clone the repository:
    ```bash
    git clone https://github.com/diazknel/IFCO.git
+2. Move to root folder
+   ```bash
    cd IFCO
-2. Build the Docker container:   
+3. Build the Docker container:   
    ```bash
    docker compose build     
-3. Executer the container
+4. Executer the container
    ```bash
    docker run -e MODE=app ifco-pyspark-app 
-4. Test Mode all Unit Test
+5. Test Mode all Unit Test
     ```bash
     docker run -e MODE=test ifco-pyspark-app
-5. Test Mode specfic Unit Test
+6. Test Mode specfic Unit Test
    ```bash
    docker run -e MODE=test -e TEST_FILE="tests/test_bronze.py" ifco-pyspark-app
