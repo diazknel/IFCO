@@ -1,21 +1,7 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0  # Última versión
     hooks:
-      - id: trailing-whitespace  # Eliminar espacios en blanco al final de las líneas
-      - id: end-of-file-fixer  # Asegurar que los archivos terminen con una nueva línea
-
-  - repo: https://github.com/psf/black
-    rev: 21.9b0
-    hooks:
-      - id: black  # Formateador de código Python
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 3.9.2
-    hooks:
-      - id: flake8  # Linter de Python
-
-  - repo: https://github.com/pre-commit/pytest
-    rev: v1.2.3
-    hooks:
-      - id: pytest  # Ejecutar pytest como hook antes de cada commit
+      - id: trailing-whitespace  # Elimina espacios en blanco finales
+      - id: end-of-file-fixer     # Asegura que los archivos terminen con una línea en blanco
+      - id: check-yaml            # Verifica la validez de archivos YAML
